@@ -1,0 +1,28 @@
+services:
+  # This is your Spring Boot application
+  - type: web
+    name: fintracker-api
+    runtime: java # This FORCES the Java environment
+    plan: free
+    buildCommand: "./mvnw clean install -DskipTests"
+    startCommand: "java -jar target/financial-tracker-api-3.5.5.jar"
+    envVars:
+      - key: DB_URL
+        fromDatabase:
+          name: fintracker-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: fintracker-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: fintracker-db
+          property: password
+      - key: JWT_SECRET
+        sync: false # Keep your secret out of the file for security
+
+  # This is your PostgreSQL database
+  - type: pserv
+    name: fintracker-db
+    plan: free
