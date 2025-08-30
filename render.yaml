@@ -7,12 +7,12 @@ services:
     buildCommand: "./mvnw clean install -DskipTests"
     startCommand: "java -jar target/financial-tracker-api-3.5.5.jar"
     envVars:
-      - key: DB_URL # This will be the full JDBC URL for PostgreSQL
+      - key: DB_URL
         fromDatabase:
           name: fintracker-db
           property: connectionString
       - key: JWT_SECRET
-        sync: false # You will set this manually in the Render dashboard for security
+        sync: false
 
   # This is your PostgreSQL database
   - type: pserv
